@@ -1,0 +1,42 @@
+name: Integrated slice
+description: One runnable outcome with observable acceptance and technical review
+title: "[Slice] "
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome and input
+      description: What should the user be able to do? Which permitted input/provider is used? No secrets or raw inbox content.
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Constraints and non-goals
+      description: Allowed tools/scopes, side effects, approval boundary, request/timeout/cost limits, and exclusions.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Observable acceptance and evidence
+      description: Concrete output/status, success and failure cases, test/live evidence, and relevant requirement links.
+    validations:
+      required: true
+  - type: textarea
+    id: review
+    attributes:
+      label: Technical review focus
+      description: State transitions, tool permissions, trust boundaries, persistence and failure invariants to verify.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and open decisions
+      description: Integration unknowns, privacy, rollback, and decisions requiring maintainer input.
+  - type: textarea
+    id: plan
+    attributes:
+      label: Bounded plan and result links
+      description: Add a plan link when needed; link sanitized evidence and the PR when ready.
