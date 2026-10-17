@@ -16,4 +16,4 @@ Each slice needs a real success trace and failure trace: run/operation identity,
 
 Use deterministic fixtures/test doubles for isolated application rules and explicit live runs for provider integration; neither substitutes for the other. Default CI stays offline. Calibrate model graders against human review; schema-valid output and citation presence are insufficient verdicts.
 
-Record pass/fail/unverified per requirement in issue/PR. Set numeric thresholds with maintainers after a baseline; six-company cases cannot establish production reliability. See [requirements](../../../docs/requirements.md) and [first-slice acceptance](../../../docs/first-slice.md).
+Record pass/fail/unverified per requirement in issue/PR. Set numeric thresholds with maintainers after a baseline; six-company cases cannot establish production reliability. See [requirements](../../../docs/requirements.md) and [first integrated milestone acceptance](https://github.com/biendo27/email_agentic/issues/1).

@@ -14,6 +14,14 @@ LangGraph determines the next execution step. Neo4j stores business relationship
 
 Primary references describe the concepts: [LangGraph workflow modeling](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph), [persistence](https://docs.langchain.com/oss/python/langgraph/persistence), and [Neo4j property graphs](https://neo4j.com/docs/getting-started/whats-neo4j/). The stack and boundary choices are project decisions, not mandatory standards from these sources.
 
+## Initial production access and ownership
+
+The first production deployment serves one user. Authentication and explicit backend ownership are required before exposing private email, runs or drafts. Multi-user behavior is deferred and must be implemented and verified separately before widening access.
+
+Separate application identity from Google provider consent: possessing an email identifier, a browser state value or an OAuth callback does not itself authorize access to a run. The backend must bind the authenticated principal to its Google connection, selected messages, runs, drafts and later approvals/operations. Enforce ownership on lookup, polling, download and mutation paths; never trust a client-supplied owner as authority.
+
+The login mechanism, allowed identity, deployment access boundary, OAuth client/redirect flow, credential storage and retention/deletion policy remain design decisions. No authentication middleware, business ownership schema or provider-token storage exists in the foundation. Choose these together before implementing the first private-data path. Avoid introducing a multi-tenant framework solely for a future possibility.
+
 ## Seven required roles
 
 Role names come from the supplied Web Research Agent requirements, slides 2-3. The responsibilities below remain implementation contracts.
@@ -41,6 +49,8 @@ State should identify the run/message, company resolution, sources/claims, draft
 Email, web pages and external database records are untrusted data. Requests embedded in them cannot change instructions, widen tool scopes or access secrets. Authority comes from application policy and valid user decisions.
 
 Tools receive schemas and trusted permission context, pass the [six registry stages](requirements.md#six-tool-harness-stages), and enforce timeouts/budgets with structured results/errors. Separate read-only tools from side-effect tools. Audit and trace records must be redacted; never publish credentials or raw inbox content.
+
+Research must separate company candidates from an evidence-supported resolution. Sources need provenance, retrieval time and minimum permitted evidence; important claims must map to supporting sources. Missing evidence, ambiguity, permission denial and provider errors cannot become a successful result. Set request/source/time and token/cost budgets before enabling a research path; a sample metric is not an operating limit.
 
 ## Observability and production intent
 

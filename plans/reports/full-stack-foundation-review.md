@@ -1,5 +1,7 @@
 # Full-stack foundation review
 
+Historical evidence for application revision `5425d373f44cd18933c8f180bcb2c8ffd6226fcf`; not a claim of current verification. Current product acceptance lives in GitHub Issues.
+
 ## Scope and result
 
 Reviewed the pending backend relocation, concrete source/test boundaries, React workspace, API validation/request lifecycle, local commands, Compose, CI and technical documentation. The foundation has real HTTP liveness behavior; research and external business integrations remain planned. No unresolved blocking defect was found in the reviewed foundation scope.

@@ -2,48 +2,9 @@
 
 Each application owns its source, tests, evaluation assets, dependencies and container. Root files coordinate the two applications. This is a project convention, not a universal vendor folder standard.
 
-## Current layout
+## Navigate the codebase
 
-```text
-apps/
-  backend/
-    src/email_agentic/
-      api/
-        app.py                   # FastAPI composition root
-        routes/health.py         # HTTP liveness contract
-      core/settings.py           # Typed configuration and validation
-      integrations/llm_gateway.py # Outbound gateway protocol and safe errors
-      cli.py                     # Explicit command entry points
-    tests/
-      conftest.py                # Isolated configuration environment
-      unit/
-        core/test_settings.py
-        integrations/test_llm_gateway.py
-        test_cli.py
-      integration/api/test_health.py
-    evals/README.md              # Agent outcome evaluation contract
-    pyproject.toml
-    uv.lock
-    Dockerfile
-  web/
-    src/
-      main.tsx                   # React bootstrap
-      app/                       # Workspace composition and its tests/styles
-      features/runtime-status/
-        index.ts                 # Public feature entry
-        health-api.ts            # HTTP request and runtime validation
-        use-backend-health.ts    # Request lifecycle and UI state
-        service-connection.tsx   # Feature presentation
-        *.test.ts(x)             # Colocated API/component tests
-        service-connection.css
-      styles/global.css          # Tokens, reset and shared presentation
-      test/setup.ts              # Shared test setup only
-    tests/e2e/                   # Real browser-to-backend tests
-    package.json
-    package-lock.json
-    playwright.config.ts
-    Dockerfile
-```
+Start with [backend source](../apps/backend/src/email_agentic), [backend tests](../apps/backend/tests), [agent evaluations](../apps/backend/evals), [web source](../apps/web/src) and [browser tests](../apps/web/tests/e2e). Discover current files with `rg --files apps/backend/src apps/backend/tests apps/web/src apps/web/tests -g '!node_modules'`; source owns the inventory. The responsibility and placement rules below apply as real features are added.
 
 ## Backend responsibilities and imports
 
@@ -75,6 +36,12 @@ Type and validate external/API/tool/state boundaries explicitly. Prefer direct b
 
 A valid schema does not establish factual support. Approved is not executed; a timed-out write may have an unknown outcome. Preserve these distinctions in models, UI and evidence when the corresponding behavior is introduced.
 
+## Python-specific choices
+
+Use a subset of the Google Python style guidance: deliberate exceptions, no mutable defaults, limited mutable globals and docstrings for non-obvious contracts. This is not a claim of full Google-style compliance. Prefer readable loops over dense comprehensions. The [backend manifest](../apps/backend/pyproject.toml) owns project tooling configuration.
+
+Define tool/node inputs, outputs, permissions, timeouts and errors explicitly. Validation and permission denial are not transient network failures. A graph checkpoint records execution state; it does not replace domain storage or an external action's transaction and deduplication contract.
+
 ## Tests and eval ownership
 
 | Suite | Location | Evidence |
@@ -91,6 +58,6 @@ Evals belong to the backend because its agents produce the judged output and act
 
 ## Checks and references
 
-[Makefile](../Makefile), [backend manifest](../apps/backend/pyproject.toml), [web scripts](../apps/web/package.json) and [CI](../.github/workflows/checks.yaml) own executable gates. Start with the narrowest useful test; see [development](development.md) for commands and [evals](../apps/backend/evals/README.md) for outcome evidence.
+[Makefile](../Makefile), [backend manifest](../apps/backend/pyproject.toml), [web scripts](../apps/web/package.json) and [CI](../.github/workflows/checks.yaml) own executable gates. Start with the narrowest useful test; see [development](development.md) for verification selection and [evals](../apps/backend/evals/README.md) for outcome evidence.
 
 The boundaries draw on [FastAPI's larger applications and routers](https://fastapi.tiangolo.com/tutorial/bigger-applications/), [React's component responsibility guidance](https://react.dev/learn/thinking-in-react), and [LangGraph's application structure](https://docs.langchain.com/oss/python/langgraph/application-structure). The exact directory names, colocated frontend tests and split between unit/integration/evals are project decisions. Framework documentation does not mandate this complete layout.

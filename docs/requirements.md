@@ -2,6 +2,8 @@
 
 The full product scope below remains planned; the foundation does not satisfy business acceptance. Requirement sources: supplied Web Research Agent materials, slides 2-4, and Tool Harness.pdf, pages 4 and 6. Do not redistribute private reference documents or images in this repository.
 
+Product priorities, dependencies and delivery status live in GitHub Projects and Issues; see [technical contribution workflow](development.md). This file owns product scope and acceptance intent, not a second status backlog.
+
 ## Traceability
 
 | Requirement | Planned acceptance evidence | Milestone |
@@ -40,11 +42,15 @@ Page 4 separately describes five lifecycle capabilities: Discover -> Choose -> E
 
 | Milestone | Observable acceptance |
 |---|---|
-| 1. [Read-only email to Markdown draft](first-slice.md) | UI selection/start, real run status/errors, cited draft review, rejected unsupported conclusions and success/failure traces. |
+| 1. [Read-only email to Markdown draft](https://github.com/biendo27/email_agentic/issues/1) | UI selection/start, real run status/errors, cited draft review, rejected unsupported conclusions and success/failure traces. |
 | 2. Approval and durable runtime | UI approval bound to content/version/action/destination; backend enforcement, restart/resume, rejection without action and replay without duplicates. |
 | 3. Company database/Neo4j, calendar and memory | Real relationship queries, calendar triggers and scoped preferences/history with reviewable UI context. |
 | 4. Outputs and approved delivery | UI preview/download of PDF/Word/Markdown/email; approval for sends/notifications/KB writes; accurate status, retry and unknown handling. |
 | 5. Evaluation, Grafana and demo/recovery | Six company cases, holdout results, browser/API evidence, dashboards from real traces, demo endpoint and restart/recovery evidence. |
+
+The first production target is one authenticated user with explicit backend ownership. Multi-user implementation and verification follow later.
+
+Introduce representative evals, redacted run/tool telemetry and relevant recovery checks with the capability they measure. Milestone 5 consolidates system acceptance and operational evidence; it is not permission to defer these checks until the end.
 
 Apply Harness gates from the first tool integration. Implement approval and replay handling before side effects. Verify provider integration and output rendering in the relevant milestone. Report passed, failed and unverified requirements separately; do not silently drop scope or present a demo as production-ready.
 

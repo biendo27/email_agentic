@@ -1,5 +1,7 @@
 # Full-stack foundation delivery
 
+Historical evidence for the foundation revision stated below; not a claim of current verification. Current product acceptance lives in GitHub Issues.
+
 The runnable development foundation is published at [biendo27/email_agentic](https://github.com/biendo27/email_agentic).
 
 ## Delivered
@@ -25,4 +27,4 @@ Only liveness, diagnostics, explicit gateway smoke plumbing and the development 
 
 ## Start implementation
 
-Use [the root README](../../README.md) for startup and [the first-slice contract](../../docs/first-slice.md) for the next integrated feature: authorized email selection, bounded read-only research, accurate run state and a cited draft reviewed in the web UI. Configure providers locally; never publish credentials or raw inbox content.
+Use [the root README](../../README.md) for startup and [the first-slice contract](https://github.com/biendo27/email_agentic/issues/1) for the next integrated feature: authorized email selection, bounded read-only research, accurate run state and a cited draft reviewed in the web UI. Configure providers locally; never publish credentials or raw inbox content.

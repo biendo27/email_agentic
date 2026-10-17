@@ -4,6 +4,12 @@ The React/TypeScript/Vite application lives in [apps/web](../apps/web). Its curr
 
 See [codebase conventions](codebase-conventions.md) for the concrete source/test layout and import directions.
 
+## Design before substantial UI changes
+
+Start with the user's task, required information, visual direction and key interaction states. Reuse existing styles/tokens where suitable. Review a concrete screen or interactive preview before a substantial new flow; a copy or spacing correction does not need a separate design artifact. Include empty, loading, partial, denied, error, retry and success states when relevant to the contract.
+
+Use screenshots or browser inspection at representative mobile and desktop widths, check real content length, keyboard access and readable contrast. Visual approval does not establish backend correctness or approve a business action. Keep feature-specific design decisions with the issue/plan; retain reusable technical conventions here.
+
 ## Structure and state
 
 Keep the entry point, application UI and API boundary small and explicit. [Source](../apps/web/src), [package scripts](../apps/web/package.json), [TypeScript configuration](../apps/web/tsconfig.app.json) and [Vite configuration](../apps/web/vite.config.ts) own the current structure and behavior. Split components, hooks or feature modules only when they acquire distinct responsibilities; do not create empty layers for future requirements.
