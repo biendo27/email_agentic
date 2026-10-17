@@ -1,0 +1,17 @@
+.git
+.venv
+.env
+.env.*
+__pycache__
+.pytest_cache
+.ruff_cache
+.pyright
+dist
+build
+plans
+data
+attachments
+tokens
+evals/outputs
+evals/runs
+tests

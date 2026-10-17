@@ -1,10 +1,14 @@
-# Planned architecture and trust boundaries
+# Architecture and trust boundaries
 
-This document records product intent and architectural decisions. The foundation provides HTTP liveness, configuration diagnostics and a gateway smoke check; see [src/email_agentic](../src/email_agentic). The business flows below are not implemented yet.
+This document records product intent and architectural decisions. The foundation includes a React/TypeScript web app in [apps/web](../apps/web) and one Python agent backend in [apps/backend](../apps/backend). The UI checks real HTTP liveness; the backend provides diagnostics and a gateway smoke command. The business flows below are not implemented yet.
 
-## One application, two kinds of graph
+Each application owns its source, tests, dependency manifest/lockfile and Dockerfile: `apps/web` for the browser, `apps/backend` for the agent backend. Root Makefile, Compose, CI and documentation coordinate the applications. Agent outcome evaluations belong to `apps/backend/evals/`. Shared local configuration remains at the repository root; provider credentials are consumed only by the backend.
 
-Use one Python/FastAPI application with LangGraph to make orchestration, state, tool calls and approval decisions explicit. A role requires a responsibility, input/output contract, tool scope and observable behavior; it need not call an LLM for every operation. Multiple roles do not require separate services.
+## Web UI, one agent backend, two kinds of graph
+
+Use React with TypeScript and Vite for the browser application, and one Python/FastAPI application with LangGraph to make orchestration, state, tool calls and approval decisions explicit. A role requires a responsibility, input/output contract, tool scope and observable behavior; it need not call an LLM for every operation. Multiple roles do not require separate services.
+
+The browser handles presentation, interaction and API state. The backend owns LLM/Gmail/Calendar credentials, orchestration, Tool Harness gates, approval enforcement and persistence. Development Vite and production nginx proxy same-origin `/healthz` requests to the backend; future business API contracts will be designed for each feature. No browser bundle, storage or frontend environment variable may contain provider secrets. See [frontend boundaries](frontend.md).
 
 LangGraph determines the next execution step. Neo4j stores business relationships among companies, domains, products, contacts, meetings and their provenance. PostgreSQL is planned for durable checkpoints, approval, operation status and audit metadata. Business schemas, migrations and checkpoint integration are not implemented. Add embeddings only when retrieval evidence justifies them; configure embedding and generation providers separately.
 
@@ -28,7 +32,7 @@ Role names come from the supplied Web Research Agent requirements, slides 2-3. T
 
 Planned flow: morning email or calendar trigger -> identify customer -> retrieve web/database/calendar context -> validate evidence -> draft -> human decision -> authorized action -> record outcome. Missing evidence, rejection and errors have explicit exits.
 
-State should identify the run/message, company resolution, sources/claims, draft version, pending action, approval and operation status, without secrets. Define concrete schemas during implementation. Approval must bind to the exact content/version, action, destination and scope; changes invalidate the prior approval.
+State should identify the run/message, company resolution, sources/claims, draft version, pending action, approval and operation status, without secrets. Define concrete schemas during implementation. Approval must bind to the exact content/version, action, destination and scope; changes invalidate the prior approval. The later web approval screen presents this binding and submits a user decision; the backend must authenticate, authorize and verify it. A browser button or state value does not grant privileges.
 
 `approved` is not `executed`. A timeout after sending may leave an `unknown` outcome that requires reconciliation before retry. Operation identity, deduplication and durable status must prevent duplicate sends/writes on replay. Verify restart and resume with a real process restart. [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) can rerun code before an interrupt; separate preparation, approval and side effects. A checkpoint alone cannot guarantee exactly-once behavior in an external service.
 

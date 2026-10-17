@@ -1,10 +1,16 @@
 # Local runtime and integration setup
 
-Follow the [README](../README.md) for Python startup. [Makefile](../Makefile), the [configuration schema](../src/email_agentic/settings.py) and [Compose](../compose.yaml) own executable commands/configuration. Liveness requires no Gmail, calendar, database or embedding integration. Live gateway smoke is explicit and separate from startup/CI.
+Follow the [README](../README.md) for backend and web startup. [Makefile](../Makefile), the [configuration schema](../apps/backend/src/email_agentic/core/settings.py) and [Compose](../compose.yaml) own executable commands/configuration. Liveness requires no Gmail, calendar, database or embedding integration. Live gateway smoke is explicit and separate from startup/CI.
+
+## Local web development
+
+`make setup` installs locked Python dependencies and runs npm CI for [apps/web](../apps/web). Run `make dev` for the backend on loopback port 8000 and `make dev-web` in another terminal for Vite on loopback port 5173 with strict-port behavior. Stop both processes after use.
+
+The browser requests relative `/healthz`; Vite forwards it to the local backend. No provider secrets belong in Vite variables or browser storage. `make check-web` runs the web quality gates; see [frontend.md](frontend.md). A working liveness UI does not prove research, provider access or persistence.
 
 ## Optional Docker infrastructure
 
-Use a running Docker daemon and Compose. Set `POSTGRES_PASSWORD` and `NEO4J_PASSWORD` in local configuration before every real-config `docker compose` invocation, including app/LGTM-only startup, `ps`, `logs` and `down`. Compose interpolates the entire file before profile/service filtering, so selecting one service does not bypass these required variables. Neo4j passwords require at least eight characters. Never put values in issues/logs. Database startup does not require an LLM key.
+Use a running Docker daemon and Compose. Set `POSTGRES_PASSWORD` and `NEO4J_PASSWORD` in local configuration before every real-config `docker compose` invocation, including web/app/LGTM-only startup, `ps`, `logs` and `down`. Compose interpolates the entire file before profile/service filtering, so selecting one service does not bypass these required variables. Neo4j passwords require at least eight characters. Never put values in issues/logs. Database startup does not require an LLM key.
 
 ```sh
 make compose-check
@@ -14,12 +20,14 @@ docker compose ps
 
 `make compose-check` supplies validation-only values without real passwords. It validates definitions without starting containers or verifying database connectivity. Check actual service health with `docker compose ps`, then query the database when its adapter is implemented. Ports bind to loopback only. Identify an existing port owner rather than starting duplicate instances on new ports.
 
-To run the app container instead of `make dev` (both use port 8000):
+To run the web and backend containers instead of the local development servers (the host ports remain 5173 and 8000):
 
 ```sh
-docker compose --profile app up -d --build app
-curl --fail http://127.0.0.1:8000/healthz
+docker compose --profile app up -d --build web
+curl --fail http://127.0.0.1:5173/healthz
 ```
+
+The web container serves the SPA through unprivileged nginx and proxies same-origin `/healthz` to the backend. Compose waits for backend health before starting it. These container startup/proxy checks remain unverified without a running Docker daemon.
 
 Use loopback in `POSTGRES_DSN` for the host Python process. `COMPOSE_POSTGRES_DSN` uses `postgres:5432` for the app container and a URL-encoded password. The container Neo4j URI uses `neo4j:7687`; local clients use loopback. Declaring a DSN does not create business checkpoints, schemas or persistence integration.
 

@@ -6,11 +6,12 @@ The full product scope below remains planned; the foundation does not satisfy bu
 
 | Requirement | Planned acceptance evidence | Milestone |
 |---|---|---|
+| Web selection/start, run status and draft review | Select an authorized message, start research, show accurate progress/errors and review cited output without fake data. | 1 |
 | Morning email checks and new-customer identification | Process relevant messages, skip old/unrelated messages, and deduplicate triggers. | 1, 3 |
 | Web, company database and calendar research; calendar trigger | Trace authorized sources, database records and meetings; calendar events start the correct run. | 1, 3 |
 | Company, domain, products, recent news, contacts and meeting points | Supported claims, source/news dates, correct company identity and explicit missing data. | 1, 3 |
-| PDF, Word, Markdown and Email outputs | Consistent content; review rendered layout/links; email remains a draft before approval. | 4 |
-| Approval before sending, official reports, notifications and KB persistence | Bind decisions to action/version/destination; rejection has no side effect; content changes invalidate approval. | 2, 4 |
+| PDF, Word, Markdown and Email outputs | Consistent content; preview/download reports in the UI and review rendered layout/links; email remains a draft before approval. | 4 |
+| Approval before sending, official reports, notifications and KB persistence | The UI shows exact action/version/destination; the backend verifies the decision and its binding. Rejection has no side effect; changes invalidate approval. | 2, 4 |
 | Sent status, retry, unknown outcomes and replay/deduplication | Reconcile external outcomes, avoid blind retries after timeouts, and prevent duplicate actions after replay/restart. | 2, 4 |
 | Preferences/history memory | Scoped retrieval, provenance/retention, and approval for business-memory writes. | 3 |
 | Seven substantive roles | Trace each [role's](architecture.md#seven-required-roles) inputs, outputs and tool permissions; empty classes are insufficient. | 1-4 |
@@ -39,14 +40,14 @@ Page 4 separately describes five lifecycle capabilities: Discover -> Choose -> E
 
 | Milestone | Observable acceptance |
 |---|---|
-| 1. [Read-only email to Markdown draft](first-slice.md) | A real cited research run, rejected unsupported conclusions, and success/failure traces. |
-| 2. Approval and durable runtime | Restart at approval and resume; rejection has no action; replay does not duplicate actions. |
-| 3. Company database/Neo4j, calendar and memory | Real relationship queries, calendar triggers and scoped preferences/history. |
-| 4. Outputs and approved delivery | Reviewed PDF/Word/Markdown/email; approval for sends/notifications/KB writes; accurate status, retry and unknown handling. |
-| 5. Evaluation, Grafana and demo/recovery | Six company cases, holdout results, dashboards from real traces, demo endpoint and restart/recovery evidence. |
+| 1. [Read-only email to Markdown draft](first-slice.md) | UI selection/start, real run status/errors, cited draft review, rejected unsupported conclusions and success/failure traces. |
+| 2. Approval and durable runtime | UI approval bound to content/version/action/destination; backend enforcement, restart/resume, rejection without action and replay without duplicates. |
+| 3. Company database/Neo4j, calendar and memory | Real relationship queries, calendar triggers and scoped preferences/history with reviewable UI context. |
+| 4. Outputs and approved delivery | UI preview/download of PDF/Word/Markdown/email; approval for sends/notifications/KB writes; accurate status, retry and unknown handling. |
+| 5. Evaluation, Grafana and demo/recovery | Six company cases, holdout results, browser/API evidence, dashboards from real traces, demo endpoint and restart/recovery evidence. |
 
 Apply Harness gates from the first tool integration. Implement approval and replay handling before side effects. Verify provider integration and output rendering in the relevant milestone. Report passed, failed and unverified requirements separately; do not silently drop scope or present a demo as production-ready.
 
 ## Metrics
 
-The slide values **98%, 42 seconds, 12 sources and 30 days** are **SAMPLE** values, not adopted project objectives. Measure latency, cost and source coverage before setting thresholds; determine freshness from the use case. Do not fabricate passing evaluations or publish raw inbox data. See the [evaluation contract](../evals/README.md).
+The slide values **98%, 42 seconds, 12 sources and 30 days** are **SAMPLE** values, not adopted project objectives. Measure latency, cost and source coverage before setting thresholds; determine freshness from the use case. Do not fabricate passing evaluations or publish raw inbox data. See the [evaluation contract](../apps/backend/evals/README.md).

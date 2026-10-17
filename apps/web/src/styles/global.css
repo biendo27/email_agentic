@@ -1,0 +1,107 @@
+:root {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: oklch(0.24 0.015 180);
+  background: oklch(0.98 0.004 90);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --surface: oklch(0.997 0.002 90);
+  --surface-soft: oklch(0.96 0.006 90);
+  --text: oklch(0.24 0.015 180);
+  --text-muted: oklch(0.46 0.015 180);
+  --accent: oklch(0.4 0.07 180);
+  --accent-hover: oklch(0.34 0.07 180);
+  --accent-soft: oklch(0.94 0.015 180);
+  --line: oklch(0.87 0.009 110);
+  --line-strong: oklch(0.68 0.015 110);
+  --danger: oklch(0.43 0.08 35);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-display: 2.5rem;
+  --radius: 0.5rem;
+  --control-height: 2.75rem;
+  --line-width: 1px;
+  --focus-width: 3px;
+  --duration: 180ms;
+  --content-width: 76rem;
+  --illustration-size: 5.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 20rem;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+button,
+a {
+  touch-action: manipulation;
+}
+:focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--space-1);
+}
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.panel-heading {
+  padding: var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  border-bottom: var(--line-width) solid var(--line);
+}
+.button {
+  min-height: var(--control-height);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  border: var(--line-width) solid transparent;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition:
+    background-color var(--duration),
+    border-color var(--duration);
+  cursor: pointer;
+}
+h2 {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}

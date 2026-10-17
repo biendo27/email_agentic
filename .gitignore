@@ -16,5 +16,10 @@ htmlcov/
 data/
 attachments/
 tokens/
-evals/outputs/
-evals/runs/
+apps/backend/evals/outputs/
+apps/backend/evals/runs/
+node_modules/
+coverage/
+*.tsbuildinfo
+playwright-report/
+test-results/
