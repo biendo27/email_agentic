@@ -1,5 +1,6 @@
 """Typed local configuration. Loading settings never contacts an integration."""
 
+from ipaddress import ip_address
 from typing import Any
 
 from pydantic import AnyHttpUrl, Field, SecretStr, field_validator
@@ -49,10 +50,19 @@ class Settings(BaseSettings):
 
     @field_validator("llm_base_url", "embedding_base_url")
     @classmethod
-    def url_has_no_credentials(cls, value: AnyHttpUrl | None) -> AnyHttpUrl | None:
-        if value is not None:
-            if value.username or value.password or value.query or value.fragment:
-                raise ValueError("Use a plain endpoint URL; configure credentials separately")
+    def url_is_safe_endpoint(cls, value: AnyHttpUrl | None) -> AnyHttpUrl | None:
+        if value is None:
+            return None
+        if value.username or value.password or value.query or value.fragment:
+            raise ValueError("Use a plain endpoint URL; configure credentials separately")
+        if value.scheme == "http":
+            host = (value.host or "").strip("[]")
+            try:
+                loopback = ip_address(host).is_loopback
+            except ValueError:
+                loopback = host == "localhost"
+            if not loopback:
+                raise ValueError("Remote provider endpoints require HTTPS; HTTP is loopback-only")
         return value
 
     def missing_gateway_fields(self) -> list[str]:

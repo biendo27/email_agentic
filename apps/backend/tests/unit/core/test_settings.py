@@ -50,6 +50,30 @@ def test_secret_values_are_redacted_from_representation() -> None:
     assert "private" not in repr(settings)
 
 
+@pytest.mark.parametrize("field", ["llm_base_url", "embedding_base_url"])
+@pytest.mark.parametrize(
+    "url",
+    ["http://gateway.invalid/v1", "http://192.168.1.2/v1", "http://localhost.evil.invalid/v1"],
+)
+def test_remote_provider_requires_encrypted_transport(field: str, url: str) -> None:
+    with pytest.raises(ValidationError, match="Remote provider endpoints require HTTPS"):
+        Settings.model_validate({field: url})
+
+
+@pytest.mark.parametrize("field", ["llm_base_url", "embedding_base_url"])
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://gateway.invalid/v1",
+        "http://localhost:8001/v1",
+        "http://127.0.0.1:8001/v1",
+        "http://[::1]:8001/v1",
+    ],
+)
+def test_provider_accepts_https_and_loopback_development(field: str, url: str) -> None:
+    assert str(getattr(Settings.model_validate({field: url}), field)) == url
+
+
 def test_environment_takes_precedence_over_local_file(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
