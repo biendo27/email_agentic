@@ -27,7 +27,7 @@ docker compose --profile app up -d --build web
 curl --fail http://127.0.0.1:5173/healthz
 ```
 
-The web container serves the SPA through unprivileged nginx and proxies same-origin `/healthz` to the backend. Compose waits for backend health before starting it. These container startup/proxy checks remain unverified without a running Docker daemon.
+The web container serves the SPA through unprivileged nginx and proxies same-origin `/healthz` to the backend. Compose waits for backend health before starting it. Both application images have been built and exercised together on a Docker bridge: the built browser UI reached the backend through nginx and `/healthz` returned HTTP 200 with `Cache-Control: no-store`. The full database/observability Compose stack has not been started; this check does not establish business integration. See the [delivery evidence](../plans/reports/full-stack-foundation-delivery.md).
 
 Use loopback in `POSTGRES_DSN` for the host Python process. `COMPOSE_POSTGRES_DSN` uses `postgres:5432` for the app container and a URL-encoded password. The container Neo4j URI uses `neo4j:7687`; local clients use loopback. Declaring a DSN does not create business checkpoints, schemas or persistence integration.
 

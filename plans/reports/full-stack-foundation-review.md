@@ -14,9 +14,9 @@ The earlier runtime/documentation/review reports describe the initial backend sn
 - Additional real failure/recovery check: stopped the owned backend process, refreshed the page and observed `Backend unavailable`, controlled error text and enabled retry. Restarted the backend and refreshed to HTTP 200, `{"status":"alive"}` and `Backend reachable`.
 - Render checker: 375x812, 768x1024 and 1440x900 produced zero errors and zero warnings. Desktop and mobile screenshots were visually inspected. Refresh hover and keyboard focus were checked. No overlays exist in this foundation.
 - Local evergreen Markdown links were resolved against current files without broken targets. Provider requests were not made during these checks.
-- Compose definitions rendered successfully. Docker image build, container startup and nginx container proxy remain unverified because no Docker daemon was available.
+- Compose definitions rendered successfully. The Docker daemon later became available: both images built, ran as non-root users, and the built browser UI reached the backend through the nginx container proxy. `/healthz` returned HTTP 200 and `Cache-Control: no-store`. The full database/observability stack remains unverified.
 
-Screenshots, browser traces and private working artifacts stay outside tracked repository content. CI/publication evidence is recorded in the delivery record after the remote run completes.
+Screenshots, browser traces and private working artifacts stay outside tracked repository content. CI/publication evidence is recorded in the [delivery record](full-stack-foundation-delivery.md).
 
 ## Confirmed fixes and review decisions
 

@@ -16,13 +16,13 @@ Provide a real React + TypeScript + Vite frontend for the Agent backend. Impleme
 
 ## Execution and verification
 
-- [ ] Typed, runtime-validated health client with timeout, cancellation and safe errors.
-- [ ] Responsive accessible workspace with real loading/success/failure/refresh behavior and honest unavailable business features.
-- [ ] Frontend lint, formatting, type checks, behavior tests and production build pass.
-- [ ] Shared local commands, Docker definitions and CI cover web and backend.
-- [ ] English technical documentation and functional milestones cover frontend interactions.
-- [ ] Browser checks cover real backend connection, failure/recovery, keyboard and 375/768/1440 layouts; review findings resolved.
-- [ ] Updated public repository and remote CI verified.
+- [x] Typed, runtime-validated health client with timeout, cancellation and safe errors.
+- [x] Responsive accessible workspace with real loading/success/failure/refresh behavior and honest unavailable business features.
+- [x] Frontend lint, formatting, type checks, behavior tests and production build pass.
+- [x] Shared local commands, Docker definitions and CI cover web and backend.
+- [x] English technical documentation and functional milestones cover frontend interactions.
+- [x] Browser checks cover real backend connection, failure/recovery, keyboard and 375/768/1440 layouts; review findings resolved.
+- [x] Updated public repository and remote CI verified.
 
 ## Integration and rollback
 

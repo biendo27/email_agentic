@@ -1,6 +1,6 @@
 ---
 title: Runnable foundation for Email Agentic
-status: in-progress
+status: completed
 date: 2026-10-16
 ---
 
@@ -18,7 +18,7 @@ Create a fresh web frontend and Python Agent backend project that a maintainer c
 - Product target remains all product requirements, seven agent roles, six Tool Harness stages, evaluation, injection defenses, approval and Grafana monitoring. Bootstrap does not claim these features are implemented.
 - Use Python 3.12, uv, FastAPI, LangGraph, Pydantic, OpenAI-compatible private gateway, PostgreSQL and Neo4j. OpenRouter embedding is optional and configured separately.
 - Code standards: explicit control flow and validated typed boundaries. Backend: Ruff, Pyright and pytest. Frontend: ESLint, Prettier, TypeScript strict mode, Vitest and Vite build. Python modules use snake_case; frontend modules and docs use kebab-case.
-- Target a modest self-hosted machine with about 8 GB RAM. No remote host access is in scope. Local Docker daemon currently unavailable.
+- Target a modest self-hosted machine with about 8 GB RAM. No remote host access is in scope. Docker application images were built and exercised after the local daemon became available; the full database/observability stack remains unverified.
 - Secrets remain in ignored local configuration. No credential values, private reference materials or personal message data are published.
 
 ## Bootstrap scope and non-goals
@@ -54,7 +54,7 @@ Implement a real health API, a responsive web workspace with actual backend live
 | Conventions and incremental handoff | Contract | [Documentation report](../reports/docs-foundation.md) |
 | Web frontend and API boundary | Backend health contract | [Frontend delivery](phase-02-web-foundation.md) |
 | Integration and review | Frontend, backend and documentation | [Review findings](../reports/foundation-review.md) |
-| Publish and onboard | Review | Remote URL and CI run |
+| Publish and onboard | Review | [Delivery evidence](../reports/full-stack-foundation-delivery.md) |
 
 [Backend checklist](phase-01-foundation.md) and [web checklist](phase-02-web-foundation.md) own delivery completion.
 
