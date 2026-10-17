@@ -66,10 +66,10 @@ The smoke command makes a real provider request and may incur cost. Embedding co
 
 - [Codebase structure and conventions](docs/codebase-conventions.md): source responsibilities, import boundaries, naming and test/eval ownership.
 - [Frontend](docs/frontend.md): UI boundaries, API validation, accessibility and behavior checks.
-- [First slice](docs/first-slice.md): select one authorized email, track research and review a cited Markdown draft in the UI.
+- [First integrated milestone](https://github.com/biendo27/email_agentic/issues/1): select one authorized email, track research and review a cited Markdown draft in the UI.
 - [Architecture and trust boundaries](docs/architecture.md): planned system boundaries and the distinction between LangGraph and Neo4j.
-- [Requirements and evidence](docs/requirements.md): full backlog, six Tool Harness stages and functional milestones.
+- [Requirements and evidence](docs/requirements.md): product scope, six Tool Harness stages and functional milestones.
 - [Contribution workflow](docs/development.md): issue, bounded plan, implementation, evidence review and PR.
 - [Evaluation](apps/backend/evals/README.md): cases, traces, holdout and the limits of foundation tests.
 
-Start an **Integrated slice** issue using the first-slice contract. Complete its acceptance evidence before expanding the feature scope.
+Select work from GitHub Projects and Issues through the [technical contribution workflow](docs/development.md). Settle the single-user access and Google connection contract before implementing the first private-data slice. Complete acceptance evidence before expanding feature scope.

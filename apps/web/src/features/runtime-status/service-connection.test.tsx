@@ -16,6 +16,9 @@ describe('service connection', () => {
     render(<ServiceConnection />)
 
     await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('Backend unavailable'))
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'The backend could not be reached. Start the backend and try again.',
+    )
     expect(screen.queryByText(/private network details/)).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Refresh connection' }))
 

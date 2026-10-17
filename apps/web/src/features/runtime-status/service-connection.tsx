@@ -19,33 +19,30 @@ export function ServiceConnection() {
           <span>Backend</span>
           <span>HTTP liveness</span>
         </div>
-        <div
-          className={`connection-state ${connection.status}`}
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <span className="status-dot" aria-hidden="true" />
-          <strong>{connectionLabel}</strong>
-        </div>
-        <div className="connection-detail">
-          {connection.status === 'checking' && <p>Checking the connection to the backend…</p>}
-          {connection.status === 'reachable' && (
-            <>
-              <p>The backend is responding. Research and integrations are not ready yet.</p>
-              <p className="checked-time">
-                Checked at{' '}
-                <time dateTime={connection.checkedAt.toISOString()}>
-                  {connection.checkedAt.toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  })}
-                </time>
-              </p>
-            </>
-          )}
-          {connection.status === 'unavailable' && <p>{connection.message}</p>}
+        <div role="status" aria-live="polite" aria-atomic="true">
+          <div className={`connection-state ${connection.status}`}>
+            <span className="status-dot" aria-hidden="true" />
+            <strong>{connectionLabel}</strong>
+          </div>
+          <div className="connection-detail">
+            {connection.status === 'checking' && <p>Checking the connection to the backend…</p>}
+            {connection.status === 'reachable' && (
+              <>
+                <p>The backend is responding. Research and integrations are not ready yet.</p>
+                <p className="checked-time">
+                  Checked at{' '}
+                  <time dateTime={connection.checkedAt.toISOString()}>
+                    {connection.checkedAt.toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                    })}
+                  </time>
+                </p>
+              </>
+            )}
+            {connection.status === 'unavailable' && <p>{connection.message}</p>}
+          </div>
         </div>
         <button
           className="button button-refresh"
